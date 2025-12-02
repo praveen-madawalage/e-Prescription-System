@@ -37,5 +37,6 @@ public class PrescriptionRepository {
     private List<PrescriptionItem> loadItems(Connection conn, int prescriptionId) throws SQLException {
         List<PrescriptionItem> items = new ArrayList<>();
         String query = "SELECT pi.*, m.name FROM prescription_items pi";
+        return null;
     }
 }
