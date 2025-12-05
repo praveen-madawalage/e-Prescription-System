@@ -2,8 +2,10 @@ package system;
 
 import system.ui.LoginFrame;
 
+import javax.swing.*;
+
 public class testing {
     public static void main(String[] args) {
-        new LoginFrame().setVisible(true);
+        SwingUtilities.invokeLater(() -> new LoginFrame().setVisible(true));
     }
 }

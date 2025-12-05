@@ -1,11 +1,11 @@
 package system.models;
 
 public class Medicine {
-    private int id;
-    private String name;
-    private String description;
-    private int stock;
-    private String unit;
+    private final int id;
+    private final String name;
+    private final String description;
+    private final int stock;
+    private final String unit;
 
     public Medicine(int id, String name, String description, int stock, String unit) {
         this.id = id;
@@ -13,5 +13,24 @@ public class Medicine {
         this.description = description;
         this.stock = stock;
         this.unit = unit;
+    }
+    public int getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public int getStock() {
+        return stock;
+    }
+    public String getUnit() {
+        return unit;
+    }
+    @Override
+    public String toString() {
+        return name + " (" + stock + " " + unit + " left)";
     }
 }

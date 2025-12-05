@@ -19,6 +19,8 @@ public abstract class User {
     @Override
     public String toString() {return fullname;}
 
+    public abstract userRole getRole();
+
     public enum userRole {
         DOCTOR, PHARMACIST, PATIENT
     }
