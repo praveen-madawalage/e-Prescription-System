@@ -2,6 +2,7 @@ package system.db;
 
 import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import system.models.*;
+import system.utility.PasswordHasher;
 
 import javax.swing.text.html.HTMLDocument;
 import java.sql.*;
@@ -31,11 +32,12 @@ public class UserRepository {
             if (rs.next()) {
                 return false;
             } else {
+                String hashed = PasswordHasher.hash(password);
                 String insertQuery = "INSERT INTO users (full_name, username, password_hash, role) VALUES (?, ?, ?, ?)";
                 PreparedStatement insert = conn.prepareStatement(insertQuery);
                 insert.setString(1, fullname);
                 insert.setString(2, username);
-                insert.setString(3, password);
+                insert.setString(3, hashed);
                 insert.setString(4, role.name());
                 insert.executeUpdate();
                 return true;
