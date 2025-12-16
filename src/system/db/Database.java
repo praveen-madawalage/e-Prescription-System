@@ -5,13 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    //static variables to make them only accessible within the class.
-    private static final String url = "jdbc:mysql://localhost:3306/hospital_rx?useSSL=false&allowPublicKeyRetrieval=true";
+    //replace xxx//localhost:3306/xxx with respective prot number.
+    private static final String url = "jdbc:mysql://localhost:3306/hospital_sys?useSSL=false&allowPublicKeyRetrieval=true";
+    //change the username and password to match your credentials.
     private static final String username = "root";
     private static final String password = "";
 
-    //to prevent users from creating a Database object.
-    //we only need the getConn() method of the class.
     private Database() {}
 
     public static Connection getConn() throws SQLException {
