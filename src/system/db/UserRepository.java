@@ -14,11 +14,15 @@ public class UserRepository {
     public User authenticate(String username, String password) throws SQLException {
         String query = "SELECT * FROM users WHERE username = ? AND password_hash = ?";
         try(Connection conn = Database.getConn(); PreparedStatement ps = conn.prepareStatement(query)) {
+
             ps.setString(1, username);
-            ps.setString(2, password);
+            //ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return mapUser(rs);
+                String hashedPW = rs.getString("password_hash");
+                if (PasswordHasher.verify(password, hashedPW)) {
+                    return mapUser(rs);
+                }
             }
             return null;
         }
