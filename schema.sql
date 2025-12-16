@@ -24,7 +24,7 @@ CREATE TABLE prescriptions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     doctor_id INT NOT NULL,
     patient_id INT NOT NULL,
-    secure_token CHAR(3) NOT NULL UNIQUE,
+    secure_token CHAR(6) NOT NULL UNIQUE,
     status ENUM('PENDING', 'DISPENSED') NOT NULL DEFAULT 'PENDING',
     notes VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
