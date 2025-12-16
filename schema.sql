@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS hospital_rx;
-CREATE DATABASE hospital_rx CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE hospital_rx;
+DROP DATABASE IF EXISTS hospital_sys;
+CREATE DATABASE hospital_sys CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE hospital_sys;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -41,17 +41,5 @@ CREATE TABLE prescription_items (
     FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON DELETE CASCADE,
     FOREIGN KEY (medicine_id) REFERENCES medicines(id)
 );
-
-INSERT INTO users (full_name, username, password_hash, role) VALUES
-('Dr. Alice Baker', 'doctor01', 'doctor01', 'DOCTOR'),
-('Phil Pharmacist', 'pharm01', 'pharm01', 'PHARMACIST'),
-('Pat Patient', 'patient01', 'patient01', 'PATIENT');
-
-INSERT INTO medicines (name, description, stock, unit) VALUES
-('Amoxicillin 500mg', 'Antibiotic capsules', 40, 'capsule'),
-('Ibuprofen 200mg', 'Pain reliever tablets', 120, 'tablet'),
-('Metformin 500mg', 'Blood sugar control', 75, 'tablet'),
-('Lisinopril 10mg', 'Blood pressure management', 60, 'tablet'),
-('Albuterol Inhaler', 'Bronchodilator inhaler', 15, 'inhaler');
 
 
