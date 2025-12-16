@@ -12,11 +12,9 @@ import java.util.List;
 public class UserRepository {
 
     public User authenticate(String username, String password) throws SQLException {
-        String query = "SELECT * FROM users WHERE username = ? AND password_hash = ?";
+        String query = "SELECT * FROM users WHERE username = ?";
         try(Connection conn = Database.getConn(); PreparedStatement ps = conn.prepareStatement(query)) {
-
             ps.setString(1, username);
-            //ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String hashedPW = rs.getString("password_hash");
