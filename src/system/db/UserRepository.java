@@ -34,6 +34,7 @@ public class UserRepository {
             if (rs.next()) {
                 return false;
             } else {
+                System.out.println("Password: " + password);
                 String hashed = PasswordHasher.hash(password);
                 String insertQuery = "INSERT INTO users (full_name, username, password_hash, role) VALUES (?, ?, ?, ?)";
                 PreparedStatement insert = conn.prepareStatement(insertQuery);

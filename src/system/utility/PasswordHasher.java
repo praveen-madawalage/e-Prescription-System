@@ -7,11 +7,11 @@ public class PasswordHasher {
 
     private PasswordHasher() {}
 
-    public String hash(String plain) {
+    public static String hash(String plain) {
         return BCrypt.hashpw(plain, BCrypt.gensalt(work_factor));
     }
 
-    public boolean verify(String plain, String hashed) {
+    public static boolean verify(String plain, String hashed) {
         if (plain == null || hashed == null) {
             return false;
         }

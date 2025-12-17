@@ -140,6 +140,7 @@ public class LoginFrame extends JFrame{
                 if (createUser) {
                     JOptionPane.showMessageDialog(signupDialog, "Account Created Successfully! Please Log in." );
                     signupDialog.dispose();
+                    System.out.println("Account created successfully!.");
                 } else {
                     lblStatus.setText("Username exists! Please use a different username!");
                 }
