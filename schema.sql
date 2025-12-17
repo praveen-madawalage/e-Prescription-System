@@ -42,4 +42,11 @@ CREATE TABLE prescription_items (
     FOREIGN KEY (medicine_id) REFERENCES medicines(id)
 );
 
+INSERT INTO medicines (name, description, stock, unit) VALUES
+('Amoxicillin 500mg', 'Antibiotic capsules', 40, 'capsule'),
+('Ibuprofen 200mg', 'Pain reliever tablets', 120, 'tablet'),
+('Metformin 500mg', 'Blood sugar control', 75, 'tablet'),
+('Lisinopril 10mg', 'Blood pressure management', 60, 'tablet'),
+('Albuterol Inhaler', 'Bronchodilator inhaler', 15, 'inhaler');
+
 
