@@ -7,6 +7,7 @@ import system.models.PrescriptionItem;
 import system.utility.PrescriptionService;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -30,20 +31,36 @@ public class PatientDashboard extends JFrame {
         loadHistory();
     }
     private void initUI() {
+        // Define Palette Colors
+        Color bgLightBlue = new Color(240, 248, 255); // AliceBlue
+        Color bgWhite = Color.WHITE;
+        Color btnBlue = new Color(176, 224, 230); // Powder Blue
+
+        setBackground(btnBlue);
         setLayout(new BorderLayout(5, 5));
         JLabel lblHeader = new JLabel("-Your Prescriptions-");
         lblHeader.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+        lblHeader.setBackground(bgLightBlue);
+        lblHeader.setOpaque(true);
+        lblHeader.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         add(lblHeader, BorderLayout.NORTH);
 
         JList<Prescription> historyList = new JList<>(historyModel);
         historyList.setCellRenderer(new PrescriptionRenderer());
+        historyList.setBackground(bgWhite);
         historyList.addListSelectionListener(e -> showDetails(historyList.getSelectedValue()));
-        add(new JScrollPane(historyList), BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(historyList);
+        scrollPane.getViewport().setBackground(bgWhite);
+        add(scrollPane, BorderLayout.CENTER);
 
         txtDetails.setEditable(false);
         txtDetails.setLineWrap(true);
         txtDetails.setWrapStyleWord(true);
-        txtDetails.setBorder(BorderFactory.createTitledBorder("Prescription Details"));
+        txtDetails.setBackground(bgWhite);
+        TitledBorder border = BorderFactory.createTitledBorder("Prescription Details.");
+        border.setTitleColor(Color.DARK_GRAY);
+        txtDetails.setBorder(border);
+
         add(txtDetails, BorderLayout.SOUTH);
     }
     private void loadHistory() {

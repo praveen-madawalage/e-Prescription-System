@@ -23,39 +23,88 @@ public class LoginFrame extends JFrame{
         setTitle("e-Prescription System");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(this);
-        setSize(360,240);
+        setSize(600,400);
         setResizable(false);
         initUI();
     }
     public void initUI() {
-        JPanel form = new JPanel(new GridBagLayout());
+        Color bgLightBlue = new Color(240, 248, 255); // AliceBlue
+        Color bgWhite = Color.WHITE;
+        Color btnBlue = new Color(176, 224, 230);     // PowderBlue
+
+        JPanel mainPanel = new JPanel(new GridLayout(1,2));
+
+        JPanel leftPanel = new JPanel(new GridBagLayout()); // GridBag centers content easily
+        leftPanel.setBackground(bgLightBlue);
+        GridBagConstraints gbcLeft = new GridBagConstraints();
+        gbcLeft.gridx = 0;
+        gbcLeft.gridy = 0;
+        gbcLeft.insets = new Insets(10, 10, 20, 10);
+
+        String imagePath = "./resources/logoFinal.png";
+
+        ImageIcon originalIcon = new ImageIcon(imagePath);
+        Image scaledImage = originalIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        JLabel lblImage = new JLabel(new ImageIcon(scaledImage));
+        if (originalIcon.getIconWidth() == -1) {
+            lblImage.setText("[Logo Image Not Found]");
+        }
+        leftPanel.add(lblImage, gbcLeft);
+
+        gbcLeft.gridy++; // Move down
+        JLabel lblBrand = new JLabel("PharmaLink");
+        lblBrand.setFont(new Font("SansSerif", Font.BOLD, 28)); // Bold and Large
+        lblBrand.setForeground(Color.DARK_GRAY);
+        leftPanel.add(lblBrand, gbcLeft);
+        mainPanel.add(leftPanel);
+
+        JPanel rightPanel = new JPanel(new GridBagLayout());
+        rightPanel.setBackground(bgWhite);
+
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(10, 10, 10, 10);
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.EAST;
-        form.add(lbl_username, gbc);
+        lbl_username.setFont(new Font("SansSerif", Font.BOLD, 12));
+        rightPanel.add(lbl_username, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.anchor = GridBagConstraints.EAST;
-        form.add(lbl_password, gbc);
+        lbl_password.setFont(new Font("SansSerif", Font.BOLD, 12));
+        rightPanel.add(lbl_password, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
-        form.add(txt_username, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Stretch input
+        txt_username.setPreferredSize(new Dimension(150, 25));
+        rightPanel.add(txt_username, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        form.add(txt_password, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        txt_password.setPreferredSize(new Dimension(150, 25));
+        rightPanel.add(txt_password, gbc);
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.setBackground(bgWhite);
+
         JButton btnLogin = new JButton("Login");
-        btnLogin.addActionListener(e -> {attemptLogin();});
+        btnLogin.setBackground(btnBlue);
+        btnLogin.setOpaque(true);
+        btnLogin.setBorderPainted(false);
+        btnLogin.addActionListener(e -> attemptLogin());
+
         JButton btnSignup = new JButton("Sign Up");
-        btnSignup.addActionListener(e -> {openSignUp();});
+        btnSignup.setBackground(btnBlue);
+        btnSignup.setOpaque(true);
+        btnSignup.setBorderPainted(false);
+        btnSignup.addActionListener(e -> openSignUp());
+
         buttonPanel.add(btnLogin);
         buttonPanel.add(btnSignup);
 
@@ -63,9 +112,11 @@ public class LoginFrame extends JFrame{
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.anchor = GridBagConstraints.CENTER;
-        form.add(buttonPanel, gbc);
+        rightPanel.add(buttonPanel, gbc);
 
-        add(form, BorderLayout.CENTER);
+        mainPanel.add(rightPanel);
+
+        add(mainPanel, BorderLayout.CENTER);
     }
     public void openSignUp() {
         JDialog signupDialog = new JDialog(this, "Sign Up", true);

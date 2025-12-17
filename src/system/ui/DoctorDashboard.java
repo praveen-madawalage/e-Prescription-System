@@ -14,6 +14,8 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 public class DoctorDashboard extends JFrame {
     private final Doctor doctor;
@@ -42,26 +44,42 @@ public class DoctorDashboard extends JFrame {
     }
 
     private void initUi() {
+        //color pallet
+        Color bgLightBlue = new Color(240, 248, 255); // AliceBlue
+        Color bgWhite = Color.WHITE;
+        Color btnBlue = new Color(176, 224, 230); //PowderBlue
+
         JPanel main = new JPanel(new BorderLayout(10, 10));
         main.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        main.setBackground(bgWhite); // Set Main Background
 
         JPanel topPanel = new JPanel(new GridLayout(2, 2, 10 , 10));
+        topPanel.setBackground(bgLightBlue); // Set Panel Background
+
         topPanel.add(new JLabel("Select Patient: "));
+        cmbPatient.setBackground(bgWhite); // Style Component
+
         topPanel.add(cmbPatient);
         topPanel.add(new JLabel("Notes (optional): "));
+        txtNotes.setBackground(bgWhite);   // Style Component
         topPanel.add(new JScrollPane(txtNotes));
         main.add(topPanel, BorderLayout.NORTH);
 
         JPanel centerPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        centerPanel.setBackground(bgWhite); // Match Main Background
         centerPanel.add(buildMedicinePanel());
         centerPanel.add(buildItemsPanel());
         main.add(centerPanel, BorderLayout.CENTER);
 
         JButton btnSave = new JButton("Save Prescription");
         btnSave.addActionListener(e -> savePrescription());
+        btnSave.setBackground(btnBlue); // Style Button
+        btnSave.setOpaque(true);
+        btnSave.setBorderPainted(false);
         lblStatus.setForeground(Color.DARK_GRAY);
 
         JPanel bottomPanel = new JPanel(new BorderLayout(10, 5));
+        bottomPanel.setBackground(bgWhite); // Match Main Background
         bottomPanel.add(btnSave, BorderLayout.CENTER);
         bottomPanel.add(lblStatus, BorderLayout.SOUTH);
         main.add(bottomPanel, BorderLayout.SOUTH);
@@ -70,11 +88,19 @@ public class DoctorDashboard extends JFrame {
     }
 
     private JPanel buildMedicinePanel() {
+        // Define Palette Colors
+        Color bgLightBlue = new Color(240, 248, 255);
+        Color btnBlue = new Color(176, 224, 230);
+
         JPanel medicinePanel = new JPanel();
         medicinePanel.setLayout(new BoxLayout(medicinePanel, BoxLayout.Y_AXIS));
-        medicinePanel.setBorder(BorderFactory.createTitledBorder("Add Medicine"));
+        TitledBorder border = BorderFactory.createTitledBorder("Add Medicine");
+        border.setTitleColor(Color.DARK_GRAY);
+        medicinePanel.setBorder(border);
+        medicinePanel.setBackground(bgLightBlue);
 
         medicinePanel.add(new JLabel("Medicine: "));
+        cmbMedicine.setBackground(Color.WHITE);
         medicinePanel.add(cmbMedicine);
 
         medicinePanel.add(Box.createVerticalStrut(5));
@@ -83,10 +109,14 @@ public class DoctorDashboard extends JFrame {
 
         medicinePanel.add(Box.createVerticalStrut(5));
         medicinePanel.add(new JLabel("Dosage Instructions: "));
+        txtDosage.setBackground(Color.WHITE);
         medicinePanel.add(txtDosage);
 
         JButton addMeds = new JButton("Add Medicine");
         addMeds.addActionListener(e -> addMedicine());
+        addMeds.setBackground(btnBlue);
+        addMeds.setOpaque(true);
+        addMeds.setBorderPainted(false);
         medicinePanel.add(Box.createVerticalStrut(10));
         medicinePanel.add(addMeds);
 
@@ -94,9 +124,18 @@ public class DoctorDashboard extends JFrame {
     }
 
     private JPanel buildItemsPanel() {
+        //Define Palette Colors
+        Color bgLightBlue = new Color(240, 248, 255);
+        Color btnBlue = new Color(176, 224, 230);
+
         JPanel itemsPanel = new JPanel(new BorderLayout());
-        itemsPanel.setBorder(BorderFactory.createTitledBorder("Prescription Items"));
+
+        TitledBorder border = BorderFactory.createTitledBorder("Prescription Items");
+        border.setTitleColor(Color.DARK_GRAY);
+        itemsPanel.setBorder(border);
+        itemsPanel.setBackground(bgLightBlue);
         JList<PrescriptionItem> itemsList = new JList<>(itemsModel);
+        itemsList.setBackground(Color.WHITE);
         itemsPanel.add(new JScrollPane(itemsList), BorderLayout.CENTER);
 
         JButton btnRemove = new JButton("Remove Item");
@@ -106,6 +145,9 @@ public class DoctorDashboard extends JFrame {
                 itemsModel.remove(index);
             }
         });
+        btnRemove.setBackground(btnBlue);
+        btnRemove.setOpaque(true);
+        btnRemove.setBorderPainted(false);
         itemsPanel.add(btnRemove, BorderLayout.SOUTH);
 
         return itemsPanel;

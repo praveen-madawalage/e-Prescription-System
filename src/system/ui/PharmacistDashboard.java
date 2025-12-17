@@ -30,35 +30,51 @@ public class PharmacistDashboard extends JFrame {
     public PharmacistDashboard(Pharmacist pharmacist) {
         this.pharmacist = pharmacist;
         setTitle("Pharmacist Console - " + pharmacist.getFullname());
-        setSize(900, 800);
+        setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         initUI();
     }
     private void initUI() {
+        // Define Palette Colors
+        Color bgLightBlue = new Color(240, 248, 255); // AliceBlue
+        Color bgWhite = Color.WHITE;
+        Color btnBlue = new Color(176, 224, 230);     // PowderBlue
+
         JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setBackground(bgWhite);
 
         JPanel prescriptionPanel = new JPanel(new BorderLayout());
+        prescriptionPanel.setBackground(bgWhite);
+
         JPanel topPanel = new JPanel();
         topPanel.add(new JLabel("Secure Token: "));
         topPanel.add(txtToken);
         JButton btnSearch = new JButton("Search Token");
+        btnSearch.setBackground(btnBlue);
+        btnSearch.setOpaque(true);
+        btnSearch.setBorderPainted(false);
         btnSearch.addActionListener(e -> lookup());
         topPanel.add(btnSearch);
         prescriptionPanel.add(topPanel, BorderLayout.NORTH);
 
         txtDetails.setEditable(false);
         txtDetails.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 13));
+        txtDetails.setBackground(bgLightBlue);
         prescriptionPanel.add(new JScrollPane(txtDetails), BorderLayout.CENTER);
 
         JButton btnDispense = new JButton("Dispense");
+        btnDispense.setBackground(btnBlue);
+        btnDispense.setOpaque(true);
+        btnDispense.setBorderPainted(false);
         btnDispense.addActionListener(e -> dispense());
         prescriptionPanel.add(btnDispense, BorderLayout.SOUTH);
 
         tabbedPane.addTab("Prescription Lookup", prescriptionPanel);
 
         JPanel inventoryPanel = new JPanel(new BorderLayout());
+        inventoryPanel.setBackground(bgWhite);
         inventoryModel = new DefaultTableModel(new String[] {"Medicine ID", "Name", "Description", "Stock", "Unit"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -66,25 +82,39 @@ public class PharmacistDashboard extends JFrame {
             }
         };
         inventoryTable = new JTable(inventoryModel);
+        inventoryTable.setBackground(bgWhite);
+        inventoryTable.getTableHeader().setBackground(bgLightBlue);
         inventoryTable.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JTextField()));
         inventoryPanel.add(new JScrollPane(inventoryTable), BorderLayout.CENTER);
 
         JPanel inventoryButtons = new JPanel();
-        JButton btnRefresh = new JButton("Refresh");
-        btnRefresh.addActionListener(e -> loadInventory());
+        inventoryButtons.setBackground(bgLightBlue);
+//        JButton btnRefresh = new JButton("Refresh");
+//        btnRefresh.setBackground(btnBlue);
+//        btnRefresh.setOpaque(true);
+//        btnRefresh.setBorderPainted(false);
+//        btnRefresh.addActionListener(e -> loadInventory());
 
         JButton btnUpdate = new JButton("Update Stock");
+        btnUpdate.setBackground(btnBlue);
+        btnUpdate.setOpaque(true);
+        btnUpdate.setBorderPainted(false);
         btnUpdate.addActionListener(e -> updateInventory());
 
         JButton btnAdd = new JButton("Add Medicine");
+        btnAdd.setBackground(btnBlue);
+        btnAdd.setOpaque(true);
+        btnAdd.setBorderPainted(false);
         btnAdd.addActionListener(e -> addNewMedicine());
 
-        inventoryButtons.add(btnRefresh);
+        //inventoryButtons.add(btnRefresh);
         inventoryButtons.add(btnUpdate);
         inventoryButtons.add(btnAdd);
         inventoryPanel.add(inventoryButtons, BorderLayout.SOUTH);
 
         JLabel lblInventory = new JLabel("Medicine Inventory Panel");
+        lblInventory.setHorizontalAlignment(SwingConstants.CENTER);
+        lblInventory.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
         inventoryPanel.add(lblInventory, BorderLayout.NORTH);
 
         tabbedPane.addTab("Inventory Management", inventoryPanel);
