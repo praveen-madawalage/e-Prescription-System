@@ -8,6 +8,7 @@ import javax.swing.text.html.HTMLDocument;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class UserRepository {
 
@@ -33,7 +34,17 @@ public class UserRepository {
             ResultSet rs = check.executeQuery();
             if (rs.next()) {
                 return false;
-            } else {
+            }
+            if (password.length() < 8) {
+                throw new IllegalArgumentException("Password must be at least 8 characters!");
+            }
+            if (!Pattern.compile("[A-Z]").matcher(password).find()) {
+                throw new IllegalArgumentException("Password must contain at least one uppercase letter.");
+            }
+            if (!Pattern.compile("[0-9]").matcher(password).find()) {
+                throw new IllegalArgumentException("Password must contain at least one number(0-9).");
+            }
+            else {
                 System.out.println("Password: " + password);
                 String hashed = PasswordHasher.hash(password);
                 String insertQuery = "INSERT INTO users (full_name, username, password_hash, role) VALUES (?, ?, ?, ?)";
