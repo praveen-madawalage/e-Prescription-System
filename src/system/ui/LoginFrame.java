@@ -90,10 +90,11 @@ public class LoginFrame extends JFrame{
 
         JLabel lblRole = new JLabel("Role: ");
         JComboBox<User.userRole> cmbRole = new JComboBox<>();
-        cmbRole.addItem(null); cmbRole.addItem(User.userRole.PATIENT);
-//        for (User.userRole userRole : User.userRole.values()) {
-//            cmbRole.addItem(userRole);
-//        }
+        cmbRole.addItem(null);
+        cmbRole.addItem(User.userRole.PATIENT);
+        //cmbRole.addItem(User.userRole.DOCTOR);
+        //cmbRole.addItem(User.userRole.PHARMACIST);
+
         JLabel lblStatus = new JLabel(" ");
         lblStatus.setForeground(Color.blue);
 
