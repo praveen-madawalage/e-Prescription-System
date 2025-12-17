@@ -91,7 +91,9 @@ public class LoginFrame extends JFrame{
         JLabel lblRole = new JLabel("Role: ");
         JComboBox<User.userRole> cmbRole = new JComboBox<>();
         cmbRole.addItem(null); cmbRole.addItem(User.userRole.PATIENT);
-
+//        for (User.userRole userRole : User.userRole.values()) {
+//            cmbRole.addItem(userRole);
+//        }
         JLabel lblStatus = new JLabel(" ");
         lblStatus.setForeground(Color.blue);
 
@@ -142,7 +144,7 @@ public class LoginFrame extends JFrame{
                 } else {
                     lblStatus.setText("Username exists! Please use a different username!");
                 }
-            } catch (SQLException exception) {
+            } catch (SQLException | IllegalArgumentException exception) {
                 JOptionPane.showMessageDialog(signupDialog, "Error Occurred: " + exception.getMessage());
             }
         });
